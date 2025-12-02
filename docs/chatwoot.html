@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>客服</title>
+  <meta charset="utf-8" />
+  <style>
+    html, body { height:100%; margin:0; }
+  </style>
+</head>
+<body>
+<script>
+  // 1) Read user data from query params
+  const params = new URLSearchParams(location.search);
+  const uid = params.get("uid");
+  const website_token = params.get("website_token");
+  const identifier_hash = params.get('identifier_hash');
+  const email = params.get("email");
+  const phone = params.get("phone");
+  const avatar = params.get("avatar_url");
+  let name = params.get("name") || ""; // optional
+  const identifierHash = params.get("identifier_hash"); // optional HMAC
+
+  if (name === "") {
+    name = "游客"+uid
+  }
+
+  // 2) Optional widget settings
+  window.chatwootSettings = {
+    type: "standard",
+    locale: "zh_CN",
+    // baseDomain: "yourdomain.com", // only if you need cross-subdomain tracking
+  };
+
+  (function(d,t) {
+    var BASE_URL = window.location.origin;// "https://chatwoot.3b2tyibu.com"; // self-hosted base
+    var g=d.createElement(t), s=d.getElementsByTagName(t)[0];
+    g.src = BASE_URL + "/packs/js/sdk.js";
+    g.defer = true; g.async = true;
+    s.parentNode.insertBefore(g,s);
+
+    g.onload = function() {
+      window.chatwootSDK.run({
+        websiteToken: website_token,//"NUFjP9mXKriFDofA5vGTu3Xt",
+        baseUrl: BASE_URL
+      });
+    }
+  })(document,"script");
+
+  // 3) When ready, set user
+  window.addEventListener("chatwoot:ready", function () {
+    console.log('chat;;;',{
+      'avatar': avatar,
+      'phone': phone,
+      'name': name,
+      'email': email,
+    });
+    if (!uid) return;
+    const chatparams = {
+      email: email || undefined,
+      phone_number: phone || undefined,
+      name: name || undefined,
+      identifier_hash: identifierHash || undefined, // HMAC if enabled
+      avatar_url: avatar || undefined,
+      // description:"little desc"
+    }
+
+    console.log('chatoot:ready,setUser chatparams uid:'+uid, chatparams);
+
+    window.$chatwoot.setUser(uid, chatparams); // :contentReference[oaicite:1]{index=1}
+
+    // custom attributes
+
+
+    // optional: open immediately
+    window.$chatwoot.toggle("open");
+  });
+</script>
+</body>
+</html>
