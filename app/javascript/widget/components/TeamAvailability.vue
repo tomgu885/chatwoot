@@ -24,10 +24,10 @@ const startConversation = () => {
   }
 };
 
-onMounted(() => {
-  console.log('onMounted . startConversation');
-  startConversation();
-});
+// onMounted(() => {
+//   console.log('onMounted . startConversation');
+//   startConversation();
+// });
 </script>
 
 <template>
