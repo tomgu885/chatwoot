@@ -64,6 +64,7 @@ export default {
       return this.contact.additional_attributes || {};
     },
     location() {
+      console.log('contact', this.contact);
       const {
         country = '',
         city = '',
@@ -259,6 +260,13 @@ export default {
             icon="map"
             emoji="🌍"
             :title="$t('CONTACT_PANEL.LOCATION')"
+          />
+          <ContactInfoRow
+            v-if="additionalAttributes.created_at_ip"
+            :value="additionalAttributes.created_at_ip"
+            emoji="🌐"
+            icon="globe"
+            :title="ip"
           />
           <SocialIcons :social-profiles="socialProfiles" />
         </div>
