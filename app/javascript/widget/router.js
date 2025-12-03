@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import ViewWithHeader from './components/layouts/ViewWithHeader.vue';
+import ViewWithoutHeader from './components/layouts/ViewWithoutHeader.vue';
 import store from './store';
 
 const router = createRouter({
@@ -17,7 +18,7 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: ViewWithHeader,
+      component: ViewWithoutHeader,
       children: [
         {
           path: '',
