@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue';
 import { IFrameHelper } from 'widget/helpers/utils';
 import { CHATWOOT_ON_START_CONVERSATION } from '../constants/sdkEvents';
 import AvailabilityContainer from 'widget/components/Availability/AvailabilityContainer.vue';
@@ -24,10 +25,10 @@ const startConversation = () => {
   }
 };
 
-// onMounted(() => {
-//   console.log('onMounted . startConversation');
-//   startConversation();
-// });
+onMounted(() => {
+  console.log('onMounted . startConversation');
+  startConversation();
+});
 </script>
 
 <template>
